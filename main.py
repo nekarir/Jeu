@@ -1,10 +1,13 @@
 import tkinter
 import numpy
+from tkinter import *
 import numpy as np
 
 x = np.zeros((3,3))
 
 def check_win(x):
+    '''Cette fonction permet de vérifier les conditions de victoire, d'égalité et s'il y a un tour suivant.
+    Elle prend en entrée une matrice numpy 3 par 3. Et renvoie 0 si il y a un gagnant ou 1 si on passe au tour suivant'''
     for i in range(x.shape[0]):
         if np.all(x[i, :] == 1):
             print("Le joueur A gagne avec une ligne")
@@ -41,6 +44,9 @@ def check_win(x):
 
 
 def get_input(joueur,x):
+    '''Cette fontion permet de récupérer les entrées des utilisateurs pour leur coup,
+    de vérifier si la cellule choisie est vide.
+    Renvoie la matrice mise à jour avec le coup du joueur si celui-ci est validé.'''
     input_ligne = int(input("Joueur "+str(joueur)+" tapez l'index de la ligne entre 0 et 2 : "))
     input_colonne = int(input("Joueur "+str(joueur)+" tapez l'index de la colonne entre 0 et 2 : "))
     if x[input_ligne, input_colonne] == 0:
@@ -53,13 +59,10 @@ def get_input(joueur,x):
         return x
 
 
-
-
-
-
 jeu = 1
 matrice = np.zeros([3,3],dtype=np.int32)
 joueur = 1
+
 while jeu == 1:
     matrice = get_input(joueur,matrice)
     jeu = check_win(matrice)
