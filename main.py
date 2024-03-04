@@ -1,7 +1,6 @@
-import tkinter
 import numpy
-from tkinter import *
 import numpy as np
+import random
 
 x = np.zeros((3,3))
 
@@ -58,6 +57,18 @@ def get_input(joueur,x):
         get_input(joueur,x)
         return x
 
+def possibilites(x):
+    l = []
+
+    for i in range(x.shape[0]):
+        for j in range(x.shape[1]):
+
+            if x[i][j] == 0:
+                l.append((i, j))
+
+    return(l)
+
+
 
 jeu = 1
 matrice = np.zeros([3,3],dtype=np.int32)
@@ -70,3 +81,4 @@ while jeu == 1:
         joueur = 2
     else:
         joueur = 1
+
