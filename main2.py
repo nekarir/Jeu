@@ -3,7 +3,7 @@ import numpy as np
 from tkinter import *
 from tkinter.ttk import *
 from typing import NamedTuple
-
+from ttkbootstrap import Style
 def button_click(btn, row, col):
     global joueur
     global matrice
@@ -44,39 +44,53 @@ def check_win(x):
     for i in range(x.shape[0]):
         if np.all(x[i, :] == 1):
             message_label.config(text="Le joueur A gagne avec une ligne")
+            disable_buttons()
             return 0
         if np.all(x[i, :] == 2):
             message_label.config(text="Le joueur B gagne avec une ligne")
+            disable_buttons()
             return 0
     for j in range(x.shape[1]):
         if np.all(x[:, j] == 1):
             message_label.config(text="Le joueur A gagne avec une colonne")
+            disable_buttons()
             return 0
         if np.all(x[:, j] == 2):
             message_label.config(text="Le joueur B gagne avec une colonne")
+            disable_buttons()
             return 0
 
     if np.all(np.diag(x) == 1):
         message_label.config(text="Le joueur A gagne avec une diagonale")
+        disable_buttons()
         return 0
     if np.all(np.diag(x) == 2):
         message_label.config(text="Le joueur B gagne avec une diagonale")
+        disable_buttons()
         return 0
     if np.all(np.diag(np.fliplr(x)) == 1):
         message_label.config(text="Le joueur A gagne avec une diagonale")
+        disable_buttons()
         return 0
     if np.all(np.diag(np.fliplr(x)) == 2):
         message_label.config(text="Le joueur B gagne avec une diagonale")
+        disable_buttons()
         return 0
     if np.all(x != 0):
         message_label.config(text="égalité")
+        disable_buttons()
         return 0
     else:
         print("tour suivant")
         return 1
 
-root = tk.Tk()
+def disable_buttons():
+    for button in [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9]:
+        button.config(state=tk.DISABLED)
 
+root = tk.Tk()
+root.title("Morpion")
+style = Style(theme="flatly")
 
 btn1 = tk.Button(root, width=30, height=12, text=" ", command=lambda: button_click(btn1, 0, 0))
 btn1.grid(row=0, column=0, padx=5, pady=5)
