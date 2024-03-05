@@ -93,7 +93,7 @@ root = tk.Tk()
 root.title("Morpion")
 style = Style(theme="flatly")
 
-btn1 = tk.Button(root, width=30, height=12, text=" ", command=lambda: button_click(btn1, 0, 0))
+btn1 = tk.Button(root, width=30, height=6, text=" ", command=lambda: button_click(btn1, 0, 0))
 btn1.grid(row=0, column=0, padx=5, pady=5)
 
 btn2 = tk.Button(root, width=30, height=12, text=" ", command=lambda: button_click(btn2, 0, 1))

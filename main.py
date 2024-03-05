@@ -2,6 +2,20 @@ import numpy
 import numpy as np
 import random
 import requests
+import time
+
+url = "https://parseapi.back4app.com/classes/"
+
+headerGetDelete = {
+    "X-Parse-Application-Id": "82aGsY5nVCNoECX4J474mWvYN1gK2BPOcJBme4Nm",
+    "X-Parse-REST-API-Key": "njCoYKaYBqVJIbrCIXsRKCV8ScNFCV2ztrGRipv9",
+}
+
+headerPutPost = {
+    "X-Parse-Application-Id": "82aGsY5nVCNoECX4J474mWvYN1gK2BPOcJBme4Nm",
+    "X-Parse-REST-API-Key": "njCoYKaYBqVJIbrCIXsRKCV8ScNFCV2ztrGRipv9",
+    "Content-Type": "application/json"
+}
 
 x = np.zeros((3,3))
 
@@ -51,19 +65,12 @@ def get_input(joueur,x):
     input_colonne = int(input("Joueur "+str(joueur)+" tapez l'index de la colonne entre 0 et 2 : "))
     if x[input_ligne, input_colonne] == 0:
         x[input_ligne, input_colonne] = joueur
-        print(x)
-
-        import requests
-
-        headers = {
-            'X-Parse-Application-Id': '82aGsY5nVCNoECX4J474mWvYN1gK2BPOcJBme4Nm',
-            'X-Parse-REST-API-Key': 'njCoYKaYBqVJIbrCIXsRKCV8ScNFCV2ztrGRipv9',
-            'Content-Type': 'application/json',
+        data = {
+            "matrice": x.tolist(),
+            "joueur": (joueur + 1) % 2
         }
-
-        data = '{ "matrice": x.tolist()}'
-
-        response = requests.put('https://parseapi.back4app.com/classes/jeu/OKafLfiRf7', headers=headers, data=data)
+        objectId = requests.request("GET", url + "/jeu", headers=headerGetDelete).json()["results"][0]["objectId"]
+        requests.request("PUT", url + "/jeu/" + objectId, headers=headerPutPost, json=data)
         return x
     else:
         print("choisis une autre case")
@@ -83,36 +90,19 @@ def possibilites(x):
 
 jeu = 1
 matrice = np.zeros([3,3],dtype=np.int32)
-joueur = 1
+response = requests.request("GET", url + "/Joueur", headers=headerGetDelete).json()["results"]
+
+joueur = 0
+if len(response) == 0:
+    joueur = 0
+    requests.request("POST", url + "/Joueur", headers=headerPutPost, json={"symbol": 0})
+else:
+    joueur = 1
+    requests.request("POST", url + "/Joueur", headers=headerPutPost, json={"symbol": 1})
 
 while jeu == 1:
+    if requests.request("GET", url + "/jeu", headers=headerGetDelete).json()["results"][0]["joueur"] == joueur:
+        matrice = get_input(joueur,matrice)
+        jeu = check_win(matrice)
 
-    headers = {
-        'X-Parse-Application-Id': '82aGsY5nVCNoECX4J474mWvYN1gK2BPOcJBme4Nm',
-        'X-Parse-REST-API-Key': 'njCoYKaYBqVJIbrCIXsRKCV8ScNFCV2ztrGRipv9',
-        'Content-Type': 'application/json',
-    }
-
-    json_data = {
-        'matrice': [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-        ],
-        'joueur': 1,
-    }
-
-    response = requests.put('https://parseapi.back4app.com/classes/jeu/OKafLfiRf7', headers=headers, json=json_data)
-
-    matrice = get_input(joueur,matrice)
-    jeu = check_win(matrice)
-    if joueur == 1:
-        joueur = 2
-    else:
-        joueur = 1
+    time.sleep(10)
