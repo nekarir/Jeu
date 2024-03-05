@@ -2,8 +2,9 @@ import tkinter as tk
 import numpy as np
 from tkinter import *
 from tkinter.ttk import *
-from typing import NamedTuple
+import random
 from ttkbootstrap import Style
+import random
 def button_click(btn, row, col):
     global joueur
     global matrice
@@ -121,5 +122,70 @@ btn9.grid(row=2, column=2, padx=5, pady=5)
 
 message_label = tk.Label(root, text="", font=("Arial", 12))
 message_label.grid(row=3, columnspan=3)
+
+def medium_ia(joueur, matrice):
+    ligne1 = matrice[0]
+    ligne2 = matrice[1]
+    ligne3 = matrice[2]
+    colonne1 = matrice[:, 0]
+    colonne2 = matrice[:, 1]
+    colonne3 = matrice[:, 2]
+
+    diagonal = np.diag(matrice)
+    diagonalinverse = np.diag(np.fliplr(matrice))
+
+    if np.array_equal(ligne1, [1, 1, 0]):
+        return 0, 2
+    if np.array_equal(ligne1, [1, 0, 1]):
+        return 0, 1
+    if np.array_equal(ligne1, [0, 1, 1]):
+        return 0, 0
+    if np.array_equal(ligne2, [1, 1, 0]):
+        return 1, 2
+    if np.array_equal(ligne2, [1, 0, 1]):
+        return 1, 1
+    if np.array_equal(ligne2, [0, 1, 1]):
+        return 1, 0
+    if np.array_equal(ligne3, [1, 1, 0]):
+        return 2, 2
+    if np.array_equal(ligne3, [1, 0, 1]):
+        return 2, 1
+    if np.array_equal(ligne3, [0, 1, 1]):
+        return 2, 0
+    if np.array_equal(colonne1, [1, 1, 0]):
+        return 2, 0
+    if np.array_equal(colonne1, [1, 0, 1]):
+        return 1, 0
+    if np.array_equal(colonne1, [0, 1, 1]):
+        return 0, 0
+    if np.array_equal(colonne2, [1, 1, 0]):
+        return 2, 1
+    if np.array_equal(colonne2, [1, 0, 1]):
+        return 1, 1
+    if np.array_equal(colonne2, [0, 1, 1]):
+        return 0, 1
+    if np.array_equal(colonne3, [1, 1, 0]):
+        return 2, 2
+    if np.array_equal(colonne3, [1, 0, 1]):
+        return 1, 2
+    if np.array_equal(colonne3, [0, 1, 1]):
+        return 0, 2
+    if np.array_equal(diagonal, [1, 1, 0]):
+        return 2, 2
+    if np.array_equal(diagonal, [1, 0, 1]):
+        return 1, 1
+    if np.array_equal(diagonal, [0, 1, 1]):
+        return 0, 0
+    if np.array_equal(diagonalinverse, [1, 1, 0]):
+        return 2, 0
+    if np.array_equal(diagonalinverse, [1, 0, 1]):
+        return 1, 1
+    if np.array_equal(diagonalinverse, [0, 1, 1]):
+        return 0, 2
+    position = (random.randint(0, 2), random.randint(0, 2))
+    while matrice[position[0], position[1]] != 0:
+        position = (random.randint(0, 2), random.randint(0, 2))
+    matrice[position[0], position[1]] = joueur
+    return position
 
 root.mainloop()

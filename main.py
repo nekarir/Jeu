@@ -1,6 +1,7 @@
 import numpy
 import numpy as np
 import random
+import requests
 
 x = np.zeros((3,3))
 
@@ -51,6 +52,18 @@ def get_input(joueur,x):
     if x[input_ligne, input_colonne] == 0:
         x[input_ligne, input_colonne] = joueur
         print(x)
+
+        import requests
+
+        headers = {
+            'X-Parse-Application-Id': '82aGsY5nVCNoECX4J474mWvYN1gK2BPOcJBme4Nm',
+            'X-Parse-REST-API-Key': 'njCoYKaYBqVJIbrCIXsRKCV8ScNFCV2ztrGRipv9',
+            'Content-Type': 'application/json',
+        }
+
+        data = '{ "matrice": x.tolist()}'
+
+        response = requests.put('https://parseapi.back4app.com/classes/jeu/OKafLfiRf7', headers=headers, data=data)
         return x
     else:
         print("choisis une autre case")
@@ -68,17 +81,38 @@ def possibilites(x):
 
     return(l)
 
-
-
 jeu = 1
 matrice = np.zeros([3,3],dtype=np.int32)
 joueur = 1
 
 while jeu == 1:
+
+    headers = {
+        'X-Parse-Application-Id': '82aGsY5nVCNoECX4J474mWvYN1gK2BPOcJBme4Nm',
+        'X-Parse-REST-API-Key': 'njCoYKaYBqVJIbrCIXsRKCV8ScNFCV2ztrGRipv9',
+        'Content-Type': 'application/json',
+    }
+
+    json_data = {
+        'matrice': [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+        ],
+        'joueur': 1,
+    }
+
+    response = requests.put('https://parseapi.back4app.com/classes/jeu/OKafLfiRf7', headers=headers, json=json_data)
+
     matrice = get_input(joueur,matrice)
     jeu = check_win(matrice)
     if joueur == 1:
         joueur = 2
     else:
         joueur = 1
-
