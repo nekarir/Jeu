@@ -94,11 +94,11 @@ response = requests.request("GET", url + "/Joueur", headers=headerGetDelete).jso
 
 joueur = 0
 if len(response) == 0:
-    joueur = 0
-    requests.request("POST", url + "/Joueur", headers=headerPutPost, json={"symbol": 0})
-else:
     joueur = 1
     requests.request("POST", url + "/Joueur", headers=headerPutPost, json={"symbol": 1})
+else:
+    joueur = 2
+    requests.request("POST", url + "/Joueur", headers=headerPutPost, json={"symbol": 2})
 
 while jeu == 1:
     if requests.request("GET", url + "/jeu", headers=headerGetDelete).json()["results"][0]["joueur"] == joueur:
