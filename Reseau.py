@@ -103,6 +103,8 @@ else:
     requests.request("POST", url + "/Joueur", headers=headerPutPost, json={"symbol": 2})
 
 
+requests.request("PUT", url + "/jeu/" + "J2ZSRnPlFO", headers=headerPutPost, json={"matrice": [[0,0,0],[0,0,0],[0,0,0]]})
+
 
 while jeu == 1:
     if requests.request("GET", url + "/jeu", headers=headerGetDelete).json()["results"][0]["joueur"] == joueur:
@@ -112,3 +114,6 @@ while jeu == 1:
         matrice = get_input(joueur, matrice)
         jeu = check_win(matrice)
     time.sleep(4)
+
+response = requests.request("DELETE", url + "/Joueur/", headers=headerPutPost)
+
