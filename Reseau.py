@@ -111,4 +111,4 @@ while jeu == 1:
         print(matrice)
         matrice = get_input(joueur, matrice)
         jeu = check_win(matrice)
-    time.sleep(10)
+    time.sleep(4)
