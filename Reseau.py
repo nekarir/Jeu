@@ -49,7 +49,7 @@ def check_win(matrice):
     if np.all(np.diag(np.fliplr(matrice)) == 2):
         print("Le joueur B gagne avec une diagonale")
         return 0
-    if np.all(matrice == 0):
+    if np.all(matrice != 0):
         print("égalité")
         return 0
     else:
