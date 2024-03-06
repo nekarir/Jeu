@@ -67,7 +67,7 @@ def get_input(joueur,x):
         x[input_ligne, input_colonne] = joueur
         data = {
             "matrice": x.tolist(),
-            "joueur": (joueur + 1) % 2
+            "joueur": 1 if joueur == 2 else 2
         }
         objectId = requests.request("GET", url + "/jeu", headers=headerGetDelete).json()["results"][0]["objectId"]
         requests.request("PUT", url + "/jeu/" + objectId, headers=headerPutPost, json=data)
@@ -102,7 +102,9 @@ else:
 
 while jeu == 1:
     if requests.request("GET", url + "/jeu", headers=headerGetDelete).json()["results"][0]["joueur"] == joueur:
+        matrice = requests.request("GET", url + "/jeu", headers=headerGetDelete).json()["results"][0]["matrice"]
+        matrice = np.asarray(matrice)
+        print(matrice)
         matrice = get_input(joueur,matrice)
         jeu = check_win(matrice)
-
     time.sleep(10)
