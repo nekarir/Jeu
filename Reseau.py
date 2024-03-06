@@ -115,5 +115,5 @@ while jeu == 1:
         jeu = check_win(matrice)
     time.sleep(4)
 
-response = requests.request("DELETE", url + "/Joueur/", headers=headerPutPost)
+requests.request("DELETE", url + "/Joueur/", headers=headerPutPost)
 
