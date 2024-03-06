@@ -58,9 +58,10 @@ def check_win(matrice):
 
 
 def get_input(joueur, matrice):
-    """Cette fontion permet de récupérer les entrées des utilisateurs pour leur coup,
-    de vérifier si la cellule choisie est vide.
-    Renvoie la matrice mise à jour avec le coup du joueur si celui-ci est validé."""
+    """Cette fontion permet de récupérer les entrées des utilisateurs pour leur coup, de vérifier si la cellule choisie
+    est vide, affiche de choisir une autre case si ce n'est pas le cas. Elle envoi uen requête pour mettre à jour la
+    matrice dans le serveur suite à l'entrée des utilisateurs. Renvoie la matrice mise à jour avec le coup du joueur si
+    celui-ci est validé."""
     input_ligne = int(input("Joueur "+str(joueur)+" tapez l'index de la ligne entre 0 et 2 : "))
     input_colonne = int(input("Joueur "+str(joueur)+" tapez l'index de la colonne entre 0 et 2 : "))
     if matrice[input_ligne, input_colonne] == 0:
@@ -105,4 +106,3 @@ while jeu == 1:
     time.sleep(4)
 
 requests.request("DELETE", url + "/Joueur/", headers=headerPutPost)
-

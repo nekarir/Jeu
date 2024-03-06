@@ -4,6 +4,10 @@ from ttkbootstrap import Style
 
 
 def button_click(btn, row, col):
+    """Cette fonction prend en entrée le bouton, la ligne, la colonne, est utilisée lorsqu'un bouton est cliqué, elle met a jour l'interface graphique,
+    lorsqu'un joueur appuie dessus le texte du bouton est changé, elle met donc à jour la matrice avec le coup du joueur.
+    Elle passe aussi au joueur suivant en bloquant les boutons qui ont déjà été utilisés.
+    Pour finir, elle vérifie si il y a un gagnant es elle affiche la fin du jeu."""
     global joueur
     global matrice
     btn.config(text="X" if joueur == 1 else "O", state=tk.DISABLED)
@@ -25,7 +29,7 @@ joueur = 1
 
 def get_input(joueur, matrice):
     """Cette fontion permet de récupérer les entrées des utilisateurs pour leur coup,
-    de vérifier si la cellule choisie est vide.
+    de vérifier si la cellule choisie est vide. Elle prend en entrée la matrice et le joueur.
     Renvoie la matrice mise à jour avec le coup du joueur si celui-ci est validé."""
     input_ligne = int(input("Joueur "+str(joueur)+" tapez l'index de la ligne entre 0 et 2 : "))
     input_colonne = int(input("Joueur "+str(joueur)+" tapez l'index de la colonne entre 0 et 2 : "))
@@ -42,7 +46,7 @@ def get_input(joueur, matrice):
 def check_win(matrice):
     """Cette fonction permet de vérifier les conditions de victoire, d'égalité et s'il y a un tour suivant.
     Elle prend en entrée une matrice numpy 3 par 3. Et renvoie 0 si il y a un gagnant ou 1 si on passe
-    au tour suivant"""
+    au tour suivant. Lorsqu'il y a une victoire ou alors une égalité elle bloque la partie ainsi les joueurs ne peuvent plus jouer. """
     for i in range(matrice.shape[0]):
         if np.all(matrice[i, :] == 1):
             message_label.config(text="Le joueur A gagne avec une ligne")
@@ -88,6 +92,8 @@ def check_win(matrice):
 
 
 def disable_buttons():
+    """Cette fonction permet de désactiver tout les boutons du morpion.
+    Elle ne prend pas d'entrées et ne renvoit rien"""
     for button in [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9]:
         button.config(state=tk.DISABLED)
 

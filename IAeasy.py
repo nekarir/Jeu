@@ -5,6 +5,9 @@ matrice = np.zeros((3, 3), dtype=np.int32)
 
 
 def check_win(matrice):
+    """Cette fonction permet de vérifier les conditions de victoire, d'égalité et s'il y a un tour suivant.
+       Elle prend en entrée une matrice numpy 3 par 3. Et renvoie 0 si il y a un gagnant ou 1 si on passe
+       au tour suivant"""
     for i in range(matrice.shape[0]):
         if np.all(matrice[i, :] == 1):
             print("Le joueur A gagne avec une ligne")
@@ -41,6 +44,9 @@ def check_win(matrice):
 
 
 def get_input(joueur, matrice):
+    """Cette fontion permet de récupérer les entrées des utilisateurs pour leur coup,
+    et de vérifier si la cellule choisie est vide.
+    Renvoie la matrice mise à jour avec le coup du joueur si celui-ci est validé."""
     input_ligne = int(input("Joueur " + str(joueur) + " tapez l'index de la ligne entre 0 et 2 : "))
     input_colonne = int(input("Joueur " + str(joueur) + " tapez l'index de la colonne entre 0 et 2 : "))
     if matrice[input_ligne, input_colonne] == 0:
@@ -54,6 +60,8 @@ def get_input(joueur, matrice):
 
 
 def easy_ia(joueur, matrice):
+    """Cette fonction permet de créer une IA qui vérifie les cases disponibles
+    et y joue aléatoirement tout au long de la partie"""
     position = (random.randint(0, 2), random.randint(0, 2))
     while matrice[position[0], position[1]] != 0:
         position = (random.randint(0, 2), random.randint(0, 2))
