@@ -19,9 +19,9 @@ x = np.zeros((3, 3))
 
 
 def check_win(matrice):
-    '''Cette fonction permet de vérifier les conditions de victoire, d'égalité et s'il y a un tour suivant.
+    """Cette fonction permet de vérifier les conditions de victoire, d'égalité et s'il y a un tour suivant.
     Elle prend en entrée une matrice numpy 3 par 3. Et renvoie 0 si il y a un gagnant ou 1 si on passe
-    au tour suivant'''
+    au tour suivant"""
     for i in range(matrice.shape[0]):
         if np.all(matrice[i, :] == 1):
             print("Le joueur A gagne avec une ligne")
