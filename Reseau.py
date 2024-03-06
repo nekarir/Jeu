@@ -78,17 +78,6 @@ def get_input(joueur, matrice):
         return matrice
 
 
-def possibilites(matrice):
-    tab = []
-
-    for i in range(matrice.shape[0]):
-        for j in range(matrice.shape[1]):
-
-            if matrice[i][j] == 0:
-                tab.append((i, j))
-
-    return tab
-
 
 jeu = 1
 matrice = np.zeros([3, 3], dtype=np.int32)
