@@ -19,37 +19,37 @@ headerPutPost = {
 
 x = np.zeros((3,3))
 
-def check_win(x):
+def check_win(matrice):
     '''Cette fonction permet de vérifier les conditions de victoire, d'égalité et s'il y a un tour suivant.
     Elle prend en entrée une matrice numpy 3 par 3. Et renvoie 0 si il y a un gagnant ou 1 si on passe au tour suivant'''
-    for i in range(x.shape[0]):
-        if np.all(x[i, :] == 1):
+    for i in range(matrice.shape[0]):
+        if np.all(matrice[i, :] == 1):
             print("Le joueur A gagne avec une ligne")
             return 0
-        if np.all(x[i, :] == 2):
+        if np.all(matrice[i, :] == 2):
             print("Le joueur B gagne avec une ligne")
             return 0
-    for j in range(x.shape[1]):
-        if np.all(x[:, j] == 1):
+    for j in range(matrice.shape[1]):
+        if np.all(matrice[:, j] == 1):
             print("Le joueur A gagne avec une colonne")
             return 0
-        if np.all(x[:, j] == 2):
+        if np.all(matrice[:, j] == 2):
             print("Le joueur B gagne avec une colonne")
             return 0
 
-    if np.all(np.diag(x) == 1):
+    if np.all(np.diag(matrice) == 1):
         print("le joueur A gagne avec une diagonale")
         return 0
-    if np.all(np.diag(x) == 2):
+    if np.all(np.diag(matrice) == 2):
         print("le joueur B gagne avec une diagonale")
         return 0
-    if np.all(np.diag(np.fliplr(x)) == 1):
+    if np.all(np.diag(np.fliplr(matrice)) == 1):
         print("Le joueur A gagne avec une diagonale")
         return 0
-    if np.all(np.diag(np.fliplr(x)) == 2):
+    if np.all(np.diag(np.fliplr(matrice)) == 2):
         print("Le joueur B gagne avec une diagonale")
         return 0
-    if np.all(x == 0):
+    if np.all(matrice == 0):
         print("égalité")
         return 0
     else:
@@ -57,33 +57,33 @@ def check_win(x):
         return 1
 
 
-def get_input(joueur,x):
+def get_input(joueur,matrice):
     '''Cette fontion permet de récupérer les entrées des utilisateurs pour leur coup,
     de vérifier si la cellule choisie est vide.
     Renvoie la matrice mise à jour avec le coup du joueur si celui-ci est validé.'''
     input_ligne = int(input("Joueur "+str(joueur)+" tapez l'index de la ligne entre 0 et 2 : "))
     input_colonne = int(input("Joueur "+str(joueur)+" tapez l'index de la colonne entre 0 et 2 : "))
-    if x[input_ligne, input_colonne] == 0:
-        x[input_ligne, input_colonne] = joueur
+    if matrice[input_ligne, input_colonne] == 0:
+        matrice[input_ligne, input_colonne] = joueur
         data = {
-            "matrice": x.tolist(),
+            "matrice": matrice.tolist(),
             "joueur": 1 if joueur == 2 else 2
         }
         objectId = requests.request("GET", url + "/jeu", headers=headerGetDelete).json()["results"][0]["objectId"]
         requests.request("PUT", url + "/jeu/" + objectId, headers=headerPutPost, json=data)
-        return x
+        return matrice
     else:
         print("choisis une autre case")
-        get_input(joueur,x)
-        return x
+        get_input(joueur,matrice)
+        return matrice
 
-def possibilites(x):
+def possibilites(matrice):
     l = []
 
-    for i in range(x.shape[0]):
-        for j in range(x.shape[1]):
+    for i in range(matrice.shape[0]):
+        for j in range(matrice.shape[1]):
 
-            if x[i][j] == 0:
+            if matrice[i][j] == 0:
                 l.append((i, j))
 
     return(l)
