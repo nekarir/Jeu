@@ -50,7 +50,7 @@ def get_input(joueur, matrice):
         print("choisis une autre case")
         return get_input(joueur, matrice)
 
-def medium_ia(joueur, matrice):
+def hard_ia(joueur, matrice):
     ligne1 = matrice[0]
     ligne2 = matrice[1]
     ligne3 = matrice[2]
@@ -171,7 +171,7 @@ while jeu == 1:
     if joueur == 1:
         matrice = get_input(joueur, matrice)
     else:
-        position = medium_ia(joueur, matrice)
+        position = hard_ia(joueur, matrice)
         matrice[position[0], position[1]] = joueur
         print(matrice)
 
