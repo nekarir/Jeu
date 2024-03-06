@@ -3,6 +3,7 @@ import random
 
 matrice = np.zeros((3, 3), dtype=np.int32)
 
+
 def check_win(matrice):
     for i in range(matrice.shape[0]):
         if np.all(matrice[i, :] == 1):
@@ -38,6 +39,7 @@ def check_win(matrice):
         print("Tour suivant")
         return 1
 
+
 def get_input(joueur, matrice):
     input_ligne = int(input("Joueur " + str(joueur) + " tapez l'index de la ligne entre 0 et 2 : "))
     input_colonne = int(input("Joueur " + str(joueur) + " tapez l'index de la colonne entre 0 et 2 : "))
@@ -50,12 +52,14 @@ def get_input(joueur, matrice):
         print("choisis une autre case")
         return get_input(joueur, matrice)
 
+
 def easy_ia(joueur, matrice):
     position = (random.randint(0, 2), random.randint(0, 2))
     while matrice[position[0], position[1]] != 0:
         position = (random.randint(0, 2), random.randint(0, 2))
     matrice[position[0], position[1]] = joueur
     return position
+
 
 jeu = 1
 joueur = 1

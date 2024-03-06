@@ -1,6 +1,4 @@
-import numpy
 import numpy as np
-import random
 import requests
 import time
 
@@ -17,11 +15,13 @@ headerPutPost = {
     "Content-Type": "application/json"
 }
 
-x = np.zeros((3,3))
+x = np.zeros((3, 3))
+
 
 def check_win(matrice):
     '''Cette fonction permet de vérifier les conditions de victoire, d'égalité et s'il y a un tour suivant.
-    Elle prend en entrée une matrice numpy 3 par 3. Et renvoie 0 si il y a un gagnant ou 1 si on passe au tour suivant'''
+    Elle prend en entrée une matrice numpy 3 par 3. Et renvoie 0 si il y a un gagnant ou 1 si on passe
+    au tour suivant'''
     for i in range(matrice.shape[0]):
         if np.all(matrice[i, :] == 1):
             print("Le joueur A gagne avec une ligne")
@@ -57,10 +57,10 @@ def check_win(matrice):
         return 1
 
 
-def get_input(joueur,matrice):
-    '''Cette fontion permet de récupérer les entrées des utilisateurs pour leur coup,
+def get_input(joueur, matrice):
+    """Cette fontion permet de récupérer les entrées des utilisateurs pour leur coup,
     de vérifier si la cellule choisie est vide.
-    Renvoie la matrice mise à jour avec le coup du joueur si celui-ci est validé.'''
+    Renvoie la matrice mise à jour avec le coup du joueur si celui-ci est validé."""
     input_ligne = int(input("Joueur "+str(joueur)+" tapez l'index de la ligne entre 0 et 2 : "))
     input_colonne = int(input("Joueur "+str(joueur)+" tapez l'index de la colonne entre 0 et 2 : "))
     if matrice[input_ligne, input_colonne] == 0:
@@ -69,27 +69,29 @@ def get_input(joueur,matrice):
             "matrice": matrice.tolist(),
             "joueur": 1 if joueur == 2 else 2
         }
-        objectId = requests.request("GET", url + "/jeu", headers=headerGetDelete).json()["results"][0]["objectId"]
-        requests.request("PUT", url + "/jeu/" + objectId, headers=headerPutPost, json=data)
+        object_id = requests.request("GET", url + "/jeu", headers=headerGetDelete).json()["results"][0]["objectId"]
+        requests.request("PUT", url + "/jeu/" + object_id, headers=headerPutPost, json=data)
         return matrice
     else:
         print("choisis une autre case")
-        get_input(joueur,matrice)
+        get_input(joueur, matrice)
         return matrice
 
+
 def possibilites(matrice):
-    l = []
+    tab = []
 
     for i in range(matrice.shape[0]):
         for j in range(matrice.shape[1]):
 
             if matrice[i][j] == 0:
-                l.append((i, j))
+                tab.append((i, j))
 
-    return(l)
+    return tab
+
 
 jeu = 1
-matrice = np.zeros([3,3],dtype=np.int32)
+matrice = np.zeros([3, 3], dtype=np.int32)
 response = requests.request("GET", url + "/Joueur", headers=headerGetDelete).json()["results"]
 
 joueur = 0
@@ -105,6 +107,6 @@ while jeu == 1:
         matrice = requests.request("GET", url + "/jeu", headers=headerGetDelete).json()["results"][0]["matrice"]
         matrice = np.asarray(matrice)
         print(matrice)
-        matrice = get_input(joueur,matrice)
+        matrice = get_input(joueur, matrice)
         jeu = check_win(matrice)
     time.sleep(10)

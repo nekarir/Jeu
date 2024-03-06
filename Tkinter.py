@@ -1,7 +1,8 @@
 import tkinter as tk
 import numpy as np
 from ttkbootstrap import Style
-import random
+
+
 def button_click(btn, row, col):
     global joueur
     global matrice
@@ -15,16 +16,17 @@ def button_click(btn, row, col):
 
     joueur = 2 if joueur == 1 else 1
 
+
 global joueur
 global matrice
-matrice = np.zeros([3,3],dtype=np.int32)
+matrice = np.zeros([3, 3], dtype=np.int32)
 joueur = 1
 
 
-def get_input(joueur,matrice):
-    '''Cette fontion permet de récupérer les entrées des utilisateurs pour leur coup,
+def get_input(joueur, matrice):
+    """Cette fontion permet de récupérer les entrées des utilisateurs pour leur coup,
     de vérifier si la cellule choisie est vide.
-    Renvoie la matrice mise à jour avec le coup du joueur si celui-ci est validé.'''
+    Renvoie la matrice mise à jour avec le coup du joueur si celui-ci est validé."""
     input_ligne = int(input("Joueur "+str(joueur)+" tapez l'index de la ligne entre 0 et 2 : "))
     input_colonne = int(input("Joueur "+str(joueur)+" tapez l'index de la colonne entre 0 et 2 : "))
     if matrice[input_ligne, input_colonne] == 0:
@@ -33,12 +35,14 @@ def get_input(joueur,matrice):
         return matrice
     else:
         print("choisis une autre case")
-        get_input(joueur,matrice)
+        get_input(joueur, matrice)
         return matrice
 
+
 def check_win(matrice):
-    '''Cette fonction permet de vérifier les conditions de victoire, d'égalité et s'il y a un tour suivant.
-    Elle prend en entrée une matrice numpy 3 par 3. Et renvoie 0 si il y a un gagnant ou 1 si on passe au tour suivant'''
+    """Cette fonction permet de vérifier les conditions de victoire, d'égalité et s'il y a un tour suivant.
+    Elle prend en entrée une matrice numpy 3 par 3. Et renvoie 0 si il y a un gagnant ou 1 si on passe
+    au tour suivant"""
     for i in range(matrice.shape[0]):
         if np.all(matrice[i, :] == 1):
             message_label.config(text="Le joueur A gagne avec une ligne")
@@ -82,9 +86,11 @@ def check_win(matrice):
         print("tour suivant")
         return 1
 
+
 def disable_buttons():
     for button in [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9]:
         button.config(state=tk.DISABLED)
+
 
 root = tk.Tk()
 root.title("Morpion")
