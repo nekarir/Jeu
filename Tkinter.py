@@ -83,11 +83,11 @@ def check_win(matrice):
         disable_buttons()
         return 0
     if np.all(matrice != 0):
-        message_label.config(text="égalité")
+        message_label.config(text="Égalité")
         disable_buttons()
         return 0
     else:
-        print("tour suivant")
+        print("Tour suivant")
         return 1
 
 

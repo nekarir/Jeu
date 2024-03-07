@@ -40,7 +40,7 @@ def check_win(matrice):
         print("Égalité")
         return 0
     else:
-        print("tour suivant")
+        print("Tour suivant")
         return 1
 
 
@@ -54,10 +54,9 @@ def get_input(joueur, matrice):
     if matrice[input_ligne, input_colonne] == 0:
         matrice[input_ligne, input_colonne] = joueur
         print(matrice)
-        print(joueur)
         return matrice
     else:
-        print("choisis une autre case")
+        print("Choisis une autre case")
         return get_input(joueur, matrice)
 
 

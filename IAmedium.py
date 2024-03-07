@@ -24,10 +24,10 @@ def check_win(matrice):
             return 0
 
     if np.all(np.diag(matrice) == 1):
-        print("le joueur A gagne avec une diagonale")
+        print("Le joueur A gagne avec une diagonale")
         return 0
     if np.all(np.diag(matrice) == 2):
-        print("le joueur B gagne avec une diagonale")
+        print("Le joueur B gagne avec une diagonale")
         return 0
     if np.all(np.diag(np.fliplr(matrice)) == 1):
         print("Le joueur A gagne avec une diagonale")
@@ -39,7 +39,7 @@ def check_win(matrice):
         print("Égalité")
         return 0
     else:
-        print("tour suivant")
+        print("Tour suivant")
         return 1
 
 

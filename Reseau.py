@@ -38,10 +38,10 @@ def check_win(matrice):
             return 0
 
     if np.all(np.diag(matrice) == 1):
-        print("le joueur A gagne avec une diagonale")
+        print("Le joueur A gagne avec une diagonale")
         return 0
     if np.all(np.diag(matrice) == 2):
-        print("le joueur B gagne avec une diagonale")
+        print("Le joueur B gagne avec une diagonale")
         return 0
     if np.all(np.diag(np.fliplr(matrice)) == 1):
         print("Le joueur A gagne avec une diagonale")
@@ -50,10 +50,10 @@ def check_win(matrice):
         print("Le joueur B gagne avec une diagonale")
         return 0
     if np.all(matrice != 0):
-        print("égalité")
+        print("Égalité")
         return 0
     else:
-        print("tour suivant")
+        print("Tour suivant")
         return 1
 
 
@@ -74,7 +74,7 @@ def get_input(joueur, matrice):
         requests.request("PUT", url + "/jeu/" + object_id, headers=headerPutPost, json=data)
         return matrice
     else:
-        print("choisis une autre case")
+        print("Choisis une autre case")
         get_input(joueur, matrice)
         return matrice
 
@@ -104,5 +104,3 @@ while jeu == 1:
         matrice = get_input(joueur, matrice)
         jeu = check_win(matrice)
     time.sleep(4)
-
-requests.request("DELETE", url + "/Joueur/", headers=headerPutPost)
