@@ -85,4 +85,4 @@ while jeu == 1:
     if joueur == 1:
         joueur = 2
     else:
-        joueur = 1
+        joueur = 
