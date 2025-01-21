@@ -4,6 +4,9 @@ pipeline {
     maven 'Maven'
   }
   stages {
+    stage('SCM') {
+      checkout scm
+    }
     stage("Build & Analyse avec SonarQube") {
       agent any
       steps {
@@ -12,15 +15,18 @@ pipeline {
         }
       }
     }
+    stage('SonarQube Analysis') {
+          steps {
+              script {
+                  // Run SonarQube analysis
+                  sh """
+                      mvn sonar:sonar \
+                      -Dsonar.projectKey=your-project-key \
+                      -Dsonar.host.url=http://localhost:9000/ \
+                      -Dsonar.login=sqp_3654775126359d1e01912c54d56279e2da33111c
+                  """
+              }
+          }
+      }
   }
 }
-node {
-  stage('SCM') {
-    checkout scm
-  }
-  stage('SonarQube Analysis') {
-    def mvn = tool 'Default Maven';
-    withSonarQubeEnv() {
-      sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Ta-m-re-la-reine-des-putes -Dsonar.projectName='Ta mère la reine des putes'"
-    }
-  }
