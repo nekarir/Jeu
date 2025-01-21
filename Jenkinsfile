@@ -3,6 +3,16 @@ pipeline {
   tools {
     maven 'Maven'
   }
+  stage('Test SonarQube Connection') {
+    steps {
+        script {
+            // Test de la connectivité
+            sh 'ping -c 4 sonarqube'  // Essayez de pinger sonarqube si c'est un nom de service
+            // ou
+            sh 'curl -v http://sonarqube:9000'  // Essayez de vous connecter à SonarQube
+        }
+      }
+    }
   stages {
     stage('SCM') {
       checkout scm
