@@ -41,13 +41,9 @@ def check_win(matrice):
     else:
         print("Tour suivant")
         return 1
-dfygudsdyfgdqsfgqsydgYDQghZ
-SDFQEYGFQTJDVYCU
-ZEFCQZJGBQT
-QEFJGQCQZETV
-FSDJGFSDY
 
-def get_input(joueur, matrice):
+
+def get_put(joueur, matrice):
     """Cette fontion permet de récupérer les entrées des utilisateurs pour leur coup,
     et de vérifier si la cellule choisie est vide.
     Renvoie la matrice mise à jour avec le coup du joueur si celui-ci est validé."""
