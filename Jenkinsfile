@@ -32,7 +32,7 @@ pipeline {
                   sh """
                       mvn sonar:sonar \
                       -Dsonar.projectKey=your-project-key \
-                      -Dsonar.host.url=http://localhost:9000/ \
+                      -Dsonar.host.url=http://192.168.175.125:9000 \
                       -Dsonar.login=sqp_3654775126359d1e01912c54d56279e2da33111c
                   """
               }
