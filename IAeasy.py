@@ -1,4 +1,4 @@
-import numpy as np
+import numpy as np 
 import random
 
 matrice = np.zeros((3, 3), dtype=np.int32)
