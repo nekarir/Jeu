@@ -1,12 +1,34 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- Identifiant du projet -->
     <groupId>sonarqube</groupId>
     <artifactId>my-project</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+
+    <!-- Définition des propriétés pour SonarQube -->
     <properties>
         <sonar.projectKey>my-project</sonar.projectKey>
         <sonar.host.url>http://192.168.175.125:9000</sonar.host.url>
+        
+        <!-- Sources à analyser -->
+        <sonar.sources>IAeasy.py, IAhard.py, IAmedium.py, Reseau.py, Tkinter.py</sonar.sources>
+        <sonar.language>py</sonar.language> <!-- Langage Python -->
+
+        <!-- Si vous avez un répertoire spécifique pour les tests, vous pouvez ajouter ces lignes -->
+        <!-- <sonar.tests>src/test/python</sonar.tests> -->
     </properties>
+
+    <!-- Dépendance pour le plugin SonarQube -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>4.0.0.4121</version> <!-- Vous pouvez mettre à jour cette version si nécessaire -->
+            </plugin>
+        </plugins>
+    </build>
 </project>
