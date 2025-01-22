@@ -5,7 +5,8 @@ stage("deploy & OWASP Dependency-Check") {
         -o './'
         -s './'
         -f 'ALL'
-        --prettyPrint''', odcInstallation: 'owasp-dependency'
+        --prettyPrint
+        --purge''', odcInstallation: 'owasp-dependency'
         dependencyCheckPublisher pattern: 'dependency-check-report.xml'
     }
 }
@@ -34,19 +35,6 @@ pipeline {
             steps {
                 script {
                     sh 'mvn clean package sonar:sonar'
-                }
-            }
-        }
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    // Run SonarQube analysis
-                    sh """
-                        mvn sonar:sonar \
-                        -Dsonar.projectKey=your-project-key \
-                        -Dsonar.host.url=http://192.168.175.125:9000 \
-                        -Dsonar.login=sqp_3654775126359d1e01912c54d56279e2da33111c
-                    """
                 }
             }
         }
