@@ -41,7 +41,11 @@ def check_win(matrice):
     else:
         print("Tour suivant")
         return 1
-
+dfygudsdyfgdqsfgqsydgYDQghZ
+SDFQEYGFQTJDVYCU
+ZEFCQZJGBQT
+QEFJGQCQZETV
+FSDJGFSDY
 
 def get_input(joueur, matrice):
     """Cette fontion permet de récupérer les entrées des utilisateurs pour leur coup,
