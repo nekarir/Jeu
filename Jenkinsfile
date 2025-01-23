@@ -4,13 +4,16 @@ pipeline {
         maven 'Maven'
     }
     stages {
+	   stage('Checkout Code') {
+            steps {
+                git branch: 'master', url: 'https://github.com/nekarir/Jeu.git' 
+            }
+
         stage('Test SonarQube Connection') {
             steps {
                 script {
-                    // Test de la connectivité
-                    sh 'ping -c 4 sonarqube'  // Essayez de pinger sonarqube si c'est un nom de service
-                    // ou
-                    sh 'curl -v http://sonarqube:9000'  // Essayez de vous connecter à SonarQube
+                    sh 'ping -c 4 sonarqube'  
+                    sh 'curl -v http://AdressIP:Port'
                 }
             }
         }
@@ -27,6 +30,17 @@ pipeline {
                 }
             }
         }
+	   stage('SonarQube Analysis') {
+            environment {
+                SONAR_HOST_URL = 'http://AdressIP:Port/' 
+                SONAR_AUTH_TOKEN = credentials('SonarQube') 
+            }
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.projectKey=sample_project -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.token=$SONAR_AUTH_TOKEN'
+            }
+        }
+
+
         stage("deploy & OWASP Dependency-Check") {
             agent any
             steps {
