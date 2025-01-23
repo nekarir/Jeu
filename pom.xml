@@ -11,7 +11,6 @@
         <sonar.projectKey>my-project</sonar.projectKey>
         <sonar.host.url>http://192.168.175.125:9000</sonar.host.url>
 
-        <!-- Assurez-vous de fournir les bons chemins relatifs pour vos fichiers Python -->
         <sonar.sources>IAeasy.py,IAhard.py,IAmedium.py,Reseau.py,Tkinter.py</sonar.sources>
         <sonar.language>py</sonar.language>
     </properties>
